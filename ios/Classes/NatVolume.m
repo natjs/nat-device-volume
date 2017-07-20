@@ -2,7 +2,7 @@
 //  NatVolume.m
 //
 //  Created by huangyake on 17/1/7.
-//  Copyright © 2017 Nat. All rights reserved.
+//  Copyright © 2017 Instapp. All rights reserved.
 //
 
 
@@ -29,6 +29,7 @@
 - (void)set:(NSNumber *)volume :(NatCallback)callback{
     if ([volume isKindOfClass:[NSNumber class]] && [volume floatValue] > 0) {
         [NatVolume getSystemVolumSlider].value = [volume floatValue];
+        callback(nil,@{@"volume":@([volume floatValue])});
     }else{
         callback(@{@"error":@{@"code":@1,@"msg":@""}},nil);
     }
