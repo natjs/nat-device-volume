@@ -6,23 +6,23 @@ import java.util.HashMap;
 
 /**
  * Created by xuqinchao on 17/2/7.
- *  Copyright (c) 2017 Nat. All rights reserved.
+ *  Copyright (c) 2017 Instapp. All rights reserved.
  */
 
-public class HLVolumeModule {
+public class VolumeModule {
 
     private Context mContext;
-    private static volatile HLVolumeModule instance = null;
+    private static volatile VolumeModule instance = null;
 
-    private HLVolumeModule(Context context){
+    private VolumeModule(Context context){
         mContext = context;
     }
 
-    public static HLVolumeModule getInstance(Context context) {
+    public static VolumeModule getInstance(Context context) {
         if (instance == null) {
-            synchronized (HLVolumeModule.class) {
+            synchronized (VolumeModule.class) {
                 if (instance == null) {
-                    instance = new HLVolumeModule(context);
+                    instance = new VolumeModule(context);
                 }
             }
         }
@@ -30,14 +30,14 @@ public class HLVolumeModule {
         return instance;
     }
     
-    public void set(float volume, HLModuleResultListener listener){
+    public void set(float volume, ModuleResultListener listener){
         AudioManager manager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         int streamMaxVolume = manager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
         manager.setStreamVolume(AudioManager.STREAM_SYSTEM, Math.round(volume * streamMaxVolume), AudioManager.FLAG_SHOW_UI | AudioManager.FLAG_PLAY_SOUND);
         get(listener);
     }
 
-    public void get(HLModuleResultListener listener){
+    public void get(ModuleResultListener listener){
         AudioManager manager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         int streamVolume = manager.getStreamVolume(AudioManager.STREAM_SYSTEM);
         int streamMaxVolume = manager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
